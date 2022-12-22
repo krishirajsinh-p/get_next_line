@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:53 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/22 02:35:44 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/22 05:02:54 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,18 @@ static char	*append(char *line, char *buffer, int len)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
 	char		*end;
 	int			len;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
+	if (read(fd, NULL, 0) < 0)
+	{
+		ft_bzero(buffer, BUFFER_SIZE);
+		return (NULL);
+	}
 	line = NULL;
 	if (!buffer[0])
 		if (read(fd, buffer, BUFFER_SIZE) == 0)

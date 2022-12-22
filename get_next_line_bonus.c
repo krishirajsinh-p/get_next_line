@@ -6,11 +6,11 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:53 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/22 02:48:12 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/22 05:02:08 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_strchr(const char *s, int c)
 {
@@ -72,13 +72,18 @@ static char	*append(char *line, char *buffer, int len)
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[FD_SETSIZE][BUFFER_SIZE];
+	static char	buffer[FD_SETSIZE][BUFFER_SIZE + 1];
 	char		*line;
 	char		*end;
 	int			len;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || read(fd, NULL, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
+	if (read(fd, NULL, 0) < 0)
+	{
+		ft_bzero(buffer[fd], BUFFER_SIZE);
+		return (NULL);
+	}
 	line = NULL;
 	if (!buffer[fd][0])
 		if (read(fd, buffer[fd], BUFFER_SIZE) == 0)

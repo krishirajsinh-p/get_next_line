@@ -6,11 +6,11 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:49 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/22 02:40:56 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/22 04:25:40 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
@@ -35,7 +35,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-	return (0);
 }
 
 void	*ft_memmove(void *dst, const void *src, size_t len)

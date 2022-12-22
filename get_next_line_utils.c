@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:49 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/22 01:38:21 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/22 04:23:48 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-	return (0);
 }
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
