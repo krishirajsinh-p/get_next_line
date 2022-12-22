@@ -6,11 +6,33 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:49 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/22 04:23:48 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/22 06:10:11 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*ptr;
+
+	ptr = s;
+	while (n-- > 0)
+		*ptr++ = 0;
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	if (size > 0 && (SIZE_MAX / size) < count)
+		return (NULL);
+	ptr = malloc(size * count);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, size * count);
+	return (ptr);
+}
 
 static void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
@@ -25,16 +47,6 @@ static void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (dst);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
 }
 
 void	*ft_memmove(void *dst, const void *src, size_t len)

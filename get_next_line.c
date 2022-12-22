@@ -6,11 +6,21 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:53 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/22 05:02:54 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/22 06:08:32 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 static char	*ft_strchr(const char *s, int c)
 {
@@ -26,28 +36,6 @@ static char	*ft_strchr(const char *s, int c)
 		ptr++;
 	}
 	return (NULL);
-}
-
-static void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*ptr;
-
-	ptr = s;
-	while (n-- > 0)
-		*ptr++ = 0;
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (size > 0 && (SIZE_MAX / size) < count)
-		return (NULL);
-	ptr = malloc(size * count);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, size * count);
-	return (ptr);
 }
 
 static char	*append(char *line, char *buffer, int len)
@@ -70,6 +58,18 @@ static char	*append(char *line, char *buffer, int len)
 	return (temp);
 }
 
+static int	check_errors(int fd, char *buffer)
+{
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (1);
+	if (read(fd, NULL, 0) < 0)
+	{
+		ft_bzero(buffer, BUFFER_SIZE);
+		return (1);
+	}
+	return (0);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
@@ -77,13 +77,8 @@ char	*get_next_line(int fd)
 	char		*end;
 	int			len;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (check_errors(fd, buffer))
 		return (NULL);
-	if (read(fd, NULL, 0) < 0)
-	{
-		ft_bzero(buffer, BUFFER_SIZE);
-		return (NULL);
-	}
 	line = NULL;
 	if (!buffer[0])
 		if (read(fd, buffer, BUFFER_SIZE) == 0)
