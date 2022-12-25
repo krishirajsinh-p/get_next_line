@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:53 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/24 23:30:04 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/25 03:40:53 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,23 @@ char	*get_next_line(int fd)
 	ft_bzero(buffer + (BUFFER_SIZE - len), len);
 	return (line);
 }
+
+/*
+//cc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c
+#include <stdio.h>
+int	main(void)
+{
+	FILE	*file;
+	char	*ptr;
+	int		i = 0;
+
+	file = fopen("test.txt", "r");
+	while ((ptr = get_next_line(fileno(file))))
+	{
+		printf("%i\t%s", i++, ptr);
+		free(ptr);
+	}
+	fclose(file);
+	return (0);
+}
+*/

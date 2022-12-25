@@ -6,7 +6,7 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:53 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/24 23:02:44 by kpuwar           ###   ########.fr       */
+/*   Updated: 2022/12/25 03:50:12 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,30 @@ char	*get_next_line(int fd)
 	ft_bzero(buffer[fd] + (BUFFER_SIZE - len), len);
 	return (line);
 }
+
+/*
+//cc -Wall -Wextra -Werror get_next_line_bonus.c get_next_line_utils_bonus.c
+#include <stdio.h>
+int	main(void)
+{
+	FILE	*file1;
+	FILE	*file2;
+	char	*ptr1;
+	char	*ptr2;
+	int		i = 1;
+
+	file1 = fopen("test1.txt", "r");
+	file2 = fopen("test2.txt", "r");
+	while ((ptr1 = get_next_line(fileno(file1))) 
+	&& (ptr2 = get_next_line(fileno(file2))))
+	{
+		printf("test1.txt [%i]\t%s", i, ptr1);
+		printf("test2.txt [%i]\t%s", i++, ptr2);
+		free(ptr1);
+		free(ptr2);
+	}
+	fclose(file1);
+	fclose(file2);
+	return (0);
+}
+*/
