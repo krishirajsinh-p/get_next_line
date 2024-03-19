@@ -1,0 +1,13 @@
+# Ignore everything
+*
+
+# Except for these files and directories
+!.gitignore
+!src/
+!includes/
+!subject/
+!README.md
+
+# Allow subdirectories under src/ and includes/
+!src/**
+!includes/**

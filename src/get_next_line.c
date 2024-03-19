@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:53 by kpuwar            #+#    #+#             */
-/*   Updated: 2022/12/25 03:50:12 by kpuwar           ###   ########.fr       */
+/*   Updated: 2024/03/19 01:45:13 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../includes/get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t ft_strlen(const char *s)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (s[i])
@@ -22,10 +22,10 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-static char	*ft_strchr(const char *s, int c)
+static char *ft_strchr(const char *s, int c)
 {
-	char	*ptr;
-	int		len;
+	char *ptr;
+	int len;
 
 	len = ft_strlen(s);
 	ptr = (char *)s;
@@ -38,11 +38,11 @@ static char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-static char	*append(char *line, char *buffer, int len)
+static char *append(char *line, char *buffer, int len)
 {
-	char			*temp;
-	unsigned short	len_line;
-	unsigned short	len_buff;
+	char *temp;
+	unsigned short len_line;
+	unsigned short len_buff;
 
 	if (line == NULL)
 		return (ft_substr(buffer, 0, len));
@@ -58,7 +58,7 @@ static char	*append(char *line, char *buffer, int len)
 	return (temp);
 }
 
-static int	check_errors(int fd, char *buffer)
+static int check_errors(int fd, char *buffer)
 {
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (1);
@@ -70,12 +70,12 @@ static int	check_errors(int fd, char *buffer)
 	return (0);
 }
 
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	static char	buffer[FD_SETSIZE][(BUFFER_SIZE > 0) * (BUFFER_SIZE + 1)];
-	char		*line;
-	char		*end;
-	int			len;
+	static char buffer[FD_SETSIZE][(BUFFER_SIZE > 0) * (BUFFER_SIZE + 1)];
+	char *line;
+	char *end;
+	int len;
 
 	if (check_errors(fd, buffer[fd]))
 		return (NULL);
@@ -112,7 +112,7 @@ int	main(void)
 
 	file1 = fopen("test1.txt", "r");
 	file2 = fopen("test2.txt", "r");
-	while ((ptr1 = get_next_line(fileno(file1))) 
+	while ((ptr1 = get_next_line(fileno(file1)))
 	&& (ptr2 = get_next_line(fileno(file2))))
 	{
 		printf("test1.txt [%i]\t%s", i, ptr1);
