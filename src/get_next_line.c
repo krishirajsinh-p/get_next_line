@@ -6,41 +6,29 @@
 /*   By: kpuwar <kpuwar@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 12:12:53 by kpuwar            #+#    #+#             */
-/*   Updated: 2024/03/19 01:45:13 by kpuwar           ###   ########.fr       */
+/*   Updated: 2024/04/08 12:59:55 by kpuwar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 
-size_t ft_strlen(const char *s)
-{
-	size_t i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-static char *ft_strchr(const char *s, int c)
-{
-	char *ptr;
-	int len;
-
-	len = ft_strlen(s);
-	ptr = (char *)s;
-	while (len-- >= 0)
-	{
-		if (*ptr == (char)c)
-			return (ptr);
-		ptr++;
-	}
-	return (NULL);
-}
-
+/**
+ * @brief Appends a buffer to a line or creates a new line if none exists.
+ *
+ * This function appends the buffer `buffer` of length `len` to the existing line `line`.
+ * If `line` is NULL, it creates a new line by copying `len` characters from `buffer`.
+ * The resulting string is returned.
+ *
+ * @param line The existing line to which the buffer will be appended. If NULL, a new line is created.
+ * @param buffer The buffer to be appended to the line.
+ * @param len The length of the buffer to be appended.
+ *
+ * @return Upon successful completion, the function returns the resulting string after appending.
+ * If memory allocation fails, NULL is returned.
+ */
 static char *append(char *line, char *buffer, int len)
 {
-	char *temp;
+	char *new_line;
 	unsigned short len_line;
 	unsigned short len_buff;
 
@@ -48,16 +36,27 @@ static char *append(char *line, char *buffer, int len)
 		return (ft_substr(buffer, 0, len));
 	len_buff = ft_strlen(buffer);
 	len_line = ft_strlen(line);
-	temp = ft_calloc(len_buff + len_line + 1, sizeof(char));
-	if (temp == NULL)
+	new_line = ft_calloc(len_buff + len_line + 1, sizeof(char));
+	if (new_line == NULL)
 		return (NULL);
-	ft_memmove(temp, line, len_line);
-	ft_memmove(temp + len_line, buffer, len);
+	ft_memmove(new_line, line, len_line);
+	ft_memmove(new_line + len_line, buffer, len);
 	free(line);
-	line = NULL;
-	return (temp);
+	return (new_line);
 }
 
+/**
+ * @brief Checks for errors related to file descriptor and buffer size.
+ *
+ * This function checks if the file descriptor `fd` is valid and if the `BUFFER_SIZE`
+ * is greater than zero. It also checks if the file descriptor is readable.
+ * If any error is encountered, it clears the buffer and returns 1.
+ *
+ * @param fd The file descriptor to check for validity.
+ * @param buffer The buffer associated with the file descriptor.
+ *
+ * @return If any error is encountered, 1 is returned. Otherwise, 0 is returned.
+ */
 static int check_errors(int fd, char *buffer)
 {
 	if (fd < 0 || BUFFER_SIZE < 1)
@@ -100,7 +99,8 @@ char *get_next_line(int fd)
 }
 
 /*
-//cc -Wall -Wextra -Werror get_next_line_bonus.c get_next_line_utils_bonus.c
+//for testing uncomment this block and run with:
+//$> gcc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c -D BUFFER_SIZE=10 && ./a.out
 #include <stdio.h>
 int	main(void)
 {

@@ -32,17 +32,8 @@ To use the function in your code, simply include its header:
 #include "get_next_line.h"
 ```
 
-and, when compiling your code, add the source files and the required flag:
+and, when compiling your code, add the source files and the required flag. Then simply run the command (change ... with your source files and <size> with desired buffer size) :
 
 ```shell
-get_next_line.c get_next_line_utils.c -D BUFFER_SIZE=<size>
-```
-
-## 📋 Testing
-
-You only have make a main and a/few name.txt files for testing this project.
-Then simply run this command (change "xx" with desired buffer size) :
-
-```shell
-gcc -Wall -Werror -Wextra -D BUFFER_SIZE=xx get_next_line.c get_next_line_utils.c && ./a.out
+gcc ... get_next_line.c get_next_line_utils.c -D BUFFER_SIZE=<size> && ./a.out
 ```
